@@ -27,7 +27,7 @@ type LED struct {
 	index uint8
 }
 
-func (l LED) write1() {
+func (l LED) write() {
 
 	fn := fmt.Sprintf("/sys/devices/soc0/leds/leds/%s/brightness", l.name)
 
@@ -37,9 +37,6 @@ func (l LED) write1() {
 
 }
 
-func (l LED) write() {
-
-}
 
 func (l LED) off() {
 
@@ -217,8 +214,8 @@ func dim_controling(color_choose string, dim_time int, in_out bool) {
 	var delta_time int
 	//var a int
 
-	delta_time = 500
-	loop_times = dim_time * 1000 / delta_time
+	delta_time = 12
+	loop_times = dim_time / delta_time
 
 	fmt.Printf("loop= %d\n", loop_times)
 
@@ -279,11 +276,11 @@ func dim_controling(color_choose string, dim_time int, in_out bool) {
 
 		if in_out {
 
-			time.Sleep(time.Duration(a_delay) * time.Microsecond)
+			time.Sleep(time.Duration(a_delay) * time.Millisecond)
 
 		} else {
 
-			time.Sleep(time.Duration(res_delay) * time.Microsecond)
+			time.Sleep(time.Duration(res_delay) * time.Millisecond)
 
 		}
 
@@ -293,11 +290,11 @@ func dim_controling(color_choose string, dim_time int, in_out bool) {
 
 		if in_out {
 
-			time.Sleep(time.Duration(res_delay) * time.Microsecond)
+			time.Sleep(time.Duration(res_delay) * time.Millisecond)
 
 		} else {
 
-			time.Sleep(time.Duration(a_delay) * time.Microsecond)
+			time.Sleep(time.Duration(a_delay) * time.Millisecond)
 
 		}
 
@@ -372,19 +369,19 @@ func main() {
 	fmt.Printf("DIM controlling\n\n\n\n")
 	//dim in test for ms, needs to
 	time_checking()
-	dim_in_out_with_led("red", 3000, true)
+	dim_in_out_with_led("red", 5000, true)
 	time_checking()
-	dim_in_out_with_led("green", 3000, true)
+	dim_in_out_with_led("green", 5000, true)
 	time_checking()
-	dim_in_out_with_led("blue", 3000, true)
+	dim_in_out_with_led("blue", 5000, true)
 	time_checking()
-	dim_in_out_with_led("white", 3000, true)
+	dim_in_out_with_led("white", 5000, true)
 	time_checking()
-	dim_in_out_with_led("turquoise", 3000, false)
+	dim_in_out_with_led("turquoise", 5000, false)
 	time_checking()
-	dim_in_out_with_led("violet", 3000, false)
+	dim_in_out_with_led("violet", 5000, false)
 	time_checking()
-	dim_in_out_with_led("yellow", 3000, false)
+	dim_in_out_with_led("yellow", 5000, false)
 	time_checking()
 
 }
