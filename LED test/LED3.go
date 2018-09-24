@@ -33,6 +33,7 @@ func (l LED) write() {
 	fn := fmt.Sprintf("/sys/devices/soc0/leds/leds/%s/brightness", l.name)
 
 	vl := fmt.Sprintf("%d", l.brightness)
+	fmt.Printf("B=%s\n", l.brightness)
 
 	ioutil.WriteFile(fn, []byte(vl), 0644)
 
@@ -282,9 +283,9 @@ func dim_controling(color_choose string, dim_time int, in_out bool) {
 
 		}
 
-		red.off()
-		green.off()
-		blue.off()
+		//red.off()
+		//green.off()
+		//blue.off()
 
 		if in_out {
 
@@ -304,21 +305,18 @@ func dim_in_out_with_led(color_choose string, dim_time int, in_out bool) {
 
 	flag.Parse()
 	*color = color_choose
-	/*
 
-			red := LED{"RED", 0, 1}
+	red := LED{"RED", 0, 1}
 
-			green := LED{"GREEN", 0, 2}
+	green := LED{"GREEN", 0, 2}
 
-			blue := LED{"BLUE", 0, 4}
+	blue := LED{"BLUE", 0, 4}
 
-			defer red.off()
-		ls
+	defer red.off()
 
-			defer green.off()
+	defer green.off()
 
-			defer blue.off()
-	*/
+	defer blue.off()
 
 	fmt.Printf("dim color=%s\n", *color)
 
@@ -354,7 +352,21 @@ func time_checking() {
 
 }
 
+func LED_init() {
+	flag.Parse()
+
+	red := LED{"RED", 0, 1}
+
+	green := LED{"GREEN", 0, 2}
+
+	blue := LED{"BLUE", 0, 4}
+	red.off()
+	green.off()
+	blue.off()
+}
+
 func main() {
+	LED_init()
 	/*
 		fmt.Printf("Flow colors\n")
 		//light on test, for seconds
@@ -384,5 +396,6 @@ func main() {
 	time_checking()
 	dim_in_out_with_led("yellow", 5000, false)
 	time_checking()
+	LED_init()
 
 }

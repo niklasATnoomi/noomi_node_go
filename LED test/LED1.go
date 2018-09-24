@@ -256,16 +256,18 @@ func dim_controling(color_choose string, dim_time int, in_out bool) {
 		} else {
 
 			time.Sleep(time.Duration(res_delay) * time.Millisecond)
+			red.off()
+			green.off()
+			blue.off()
 
 		}
-
-		red.off()
-		green.off()
-		blue.off()
 
 		if in_out {
 
 			time.Sleep(time.Duration(res_delay) * time.Millisecond)
+			red.off()
+			green.off()
+			blue.off()
 
 		} else {
 
