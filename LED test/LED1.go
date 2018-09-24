@@ -339,14 +339,16 @@ func flash_serval_times(color_choose string, delay_time int, times int) {
 
 func main() {
 
-	var duration_flow int
 	var duration_flash int
 	var duration_flash_times int
+	var duration_flow int
 	var duration_dim int
 
-	duration_flow = 200
 	duration_flash = 100
 	duration_flash_times = 10
+
+	/**/
+	duration_flow = 200
 
 	duration_dim = 2000
 
@@ -359,11 +361,28 @@ func main() {
 	play_with_led("turquoise", duration_flow)
 	play_with_led("violet", duration_flow)
 	play_with_led("yellow", duration_flow)
+	/**/
 
 	fmt.Printf("Flash colors\n\n\n")
 	flash_serval_times("red", duration_flash, duration_flash_times)
 	flash_serval_times("green", duration_flash, duration_flash_times)
 	flash_serval_times("blue", duration_flash, duration_flash_times)
+	/*
+		fmt.Printf("Flash yellow 200s 5 times\n\n\n")
+		time.Sleep(time.Duration(1000) * time.Millisecond)
+		duration_flash = 200
+		flash_serval_times("yellow", duration_flash, duration_flash_times)
+
+		fmt.Printf("Flash yellow 200s 5 times\n\n\n")
+		time.Sleep(time.Duration(1000) * time.Millisecond)
+		duration_flash = 400
+		flash_serval_times("yellow", duration_flash, duration_flash_times)
+
+		fmt.Printf("Flash yellow 200s 5 times\n\n\n")
+		time.Sleep(time.Duration(1000) * time.Millisecond)
+		duration_flash = 600
+		flash_serval_times("yellow", duration_flash, duration_flash_times)
+	*/
 
 	fmt.Printf("DIM controlling\n\n\n")
 	//dim in test for ms, needs to
