@@ -206,7 +206,7 @@ func dim_controling(color_choose string, dim_time int, in_out bool) {
 	var res_delay int
 	var delta_time int
 
-	delta_time = 10
+	delta_time = 8
 	loop_times = dim_time / delta_time
 
 	fmt.Printf("loop= %d\n", loop_times)
@@ -279,6 +279,95 @@ func dim_controling(color_choose string, dim_time int, in_out bool) {
 
 }
 
+func dim_controling_micro(color_choose string, dim_time int, in_out bool) {
+
+	flag.Parse()
+
+	red := LED{"RED", 0, 1}
+
+	green := LED{"GREEN", 0, 2}
+
+	blue := LED{"BLUE", 0, 4}
+	fmt.Printf("dim_controling color=%s\n", *color)
+
+	var loop_times int
+	var a_delay int
+	var res_delay int
+	var delta_time int
+
+	delta_time = 500
+	loop_times = dim_time * 1000 / delta_time
+
+	fmt.Printf("loop= %d\n", loop_times)
+
+	for a := 0; a < loop_times; a++ {
+		a_delay = delta_time * a / loop_times
+		res_delay = delta_time * (loop_times - a) / loop_times
+
+		switch strings.ToLower(*color) {
+
+		case "":
+			fmt.Printf(" on\n")
+
+			//play(red, green, blue)
+
+		case "red":
+			red.on()
+
+		case "green":
+			green.on()
+
+		case "blue":
+			blue.on()
+
+		case "white":
+			red.on()
+			green.on()
+			blue.on()
+
+		case "turquoise":
+			green.on()
+			blue.on()
+
+		case "violet":
+			red.on()
+			blue.on()
+
+		case "yellow":
+			red.on()
+			green.on()
+		}
+
+		if in_out {
+
+			time.Sleep(time.Duration(a_delay) * time.Microsecond)
+
+		} else {
+
+			time.Sleep(time.Duration(res_delay) * time.Microsecond)
+			red.off()
+			green.off()
+			blue.off()
+
+		}
+
+		if in_out {
+
+			time.Sleep(time.Duration(res_delay) * time.Microsecond)
+			red.off()
+			green.off()
+			blue.off()
+
+		} else {
+
+			time.Sleep(time.Duration(a_delay) * time.Microsecond)
+
+		}
+
+	}
+
+}
+
 func dim_in_out_with_led(color_choose string, dim_time int, in_out bool) {
 
 	flag.Parse()
@@ -298,7 +387,8 @@ func dim_in_out_with_led(color_choose string, dim_time int, in_out bool) {
 
 	fmt.Printf("dim color=%s\n", *color)
 
-	dim_controling(color_choose, dim_time, in_out)
+	//dim_controling(color_choose, dim_time, in_out)
+	dim_controling_micro(color_choose, dim_time, in_out)
 
 }
 
@@ -352,7 +442,7 @@ func main() {
 	/**/
 	duration_flow = 200
 
-	duration_dim = 2000
+	duration_dim = 3000
 
 	fmt.Printf("Flow colors\n\n\n")
 	//light on test, for seconds
